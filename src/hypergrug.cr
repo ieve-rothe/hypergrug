@@ -1,4 +1,6 @@
-
+# src/hypergrug.cr
+# Copyright (C) 2026 Cam Carroll
+# Licensed under the AGPL-3.0. See LICENSE for details.
 
 require "bit_array"
 
@@ -38,10 +40,10 @@ module Hypergrug
   # Implementation uses a `struct` because it's stack-allocated, allowing
   # cache-locality predictability and avoiding gahbage collection overhead.
   #
-  # ### Examples
+  # ### Example:
   #
   # ```
-  # # Create new orthogonal vectors
+  # # Create new vectors
   # a = Hypervector.random(10_000)
   # b = Hypervector.random(10_000)
   #
@@ -72,11 +74,12 @@ module Hypergrug
       @dimensions = @bits.size
     end
 
-    # Generates a pristine, pseudo-random hypervector where each bit has an equal
-    # probability of being `true` or `false`.
+    # Generates a pristine, pseudo-random hypervector where each bit has 
+    # an equal probability of being `true` or `false`.
     #
-    # Randomly generated vectors in high dimensions ($D \ge 10,000$) are mathematically
-    # guaranteed to be orthogonal to one another, preventing concept collision.
+    # Randomly generated vectors in high dimensions (D ≥ 10,000) are
+    # mathematically guaranteed to be orthogonal to one another, preventing 
+    # concept collision.
     def self.random(dimensions : Int32) : self
       hv = new(dimensions)
       r = Random.new
@@ -86,8 +89,9 @@ module Hypergrug
 
     # BINDING: Combines two hypervectors into a completely new, orthogonal vector using a bitwise XOR.
     #
-    # Binding is fully invertible, meaning multiplying the result by one of the original components
-    # projects the other component back out (obscured by background noise if bundled).
+    # Binding is fully invertible, meaning multiplying the result by one of the
+    # original components projects the other component back out (obscured by
+    # background noise if bundled).
     #
     # Raises `ArgumentError` if the dimensions of `other` do not match.
     def *(other : self) : self
@@ -100,22 +104,25 @@ module Hypergrug
 
     # BUNDLING: Superposes two hypervectors into a single vector using a Majority Rule bit-count.
     #
-    # This acts as an ergonomic shortcut for binary array bundling. Even arrays ($N=2$)
-    # utilize a stochastic coin-flip to resolve exact ties at individual bit positions.
+    # This acts as an ergonomic shortcut for binary array bundling.
+    # Even arrays N=2 utilize a stochastic coin-flip to resolve exact ties at
+    # individual bit positions.
     #
     # Raises `ArgumentError` if the dimensions of `other` do not match.
     def +(other : self) : self
       Hypervector.bundle([self, other])
     end
 
-    # General $N$-ary bundling that superposes an arbitrary array of hypervectors into a single,
+    # N-ary bundling that superposes an array of hypervectors into a single
     # holographic representation using Majority Rule bit-counting.
     #
-    # The resulting vector retains geometric similarity to all its constituent parts until
-    # hitting the capacity wall ($\sim 20$–$50$ distinct items per 10,000 bits).
+    # The output vector retains geometric similarity to all its constituent 
+    # parts up until the capacity wall (around 20–50 distinct items per
+    # 10,000 bits).
     #
-    # If an even number of vectors are passed and a bit position has an exact tie, a stochastic
-    # tie-breaker (coin-flip) is applied to prevent bitwise saturation.
+    # If an even number of vectors are passed and a bit position has an exact 
+    # tie, a stochastic tie-breaker (coin-flip) is applied to prevent
+    # bitwise saturation.
     #
     # Raises `ArgumentError` if the provided array is empty.
     def self.bundle(vectors : Array(self)) : self
@@ -140,8 +147,9 @@ module Hypergrug
 
     # Computes the Hamming distance between this hypervector and `other`.
     #
-    # The Hamming distance represents the total number of bit-positions that differ between
-    # the two vectors. It serves as the primary proximity metric for the associative Clean-Up Memory.
+    # The Hamming distance represents the total number of bit-positions 
+    # that differ between the two vectors. It serves as the primary proximity
+    # metric for the associative Clean-Up Memory.
     #
     # Raises `ArgumentError` if the dimensions of `other` do not match.
     def distance_to(other : self) : Int32
