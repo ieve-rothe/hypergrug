@@ -1,6 +1,6 @@
 # hypergrug
 
-TODO: Write a description here
+Hyperdimensional Computing (HDC) library for Crystal Lang.
 
 ## Installation
 

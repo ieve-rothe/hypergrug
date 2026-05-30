@@ -1,5 +1,5 @@
 name: hypergrug
-version: 0.1.0
+version: 0.2.0
 
 authors:
   - ieve <ievemail@proton.me>
@@ -10,4 +10,4 @@ targets:
 
 crystal: '>= 1.20.2'
 
-license: MIT
+license: GNU Affero General Public License
