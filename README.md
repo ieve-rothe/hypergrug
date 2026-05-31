@@ -4,19 +4,23 @@ Hyperdimensional Computing (HDC) library for Crystal Lang.
 
 ## Installation
 
-TODO: Write installation instructions here
+1. Add the dependency to your `shard.yml`:
+
+   ```yaml
+   dependencies:
+     hypergrug:
+       github: ieve-rothe/hypergrug
+   ```
+
+2. Run `shards install`
 
 ## Usage
 
-TODO: Write usage instructions here
-
-## Development
-
-TODO: Write development instructions here
+See examples/ folder
 
 ## Contributing
 
-1. Fork it (<https://github.com/your-github-user/hypergrug/fork>)
+1. Fork it (<https://github.com/ieve-rothe/hypergrug/fork>)
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
@@ -24,4 +28,4 @@ TODO: Write development instructions here
 
 ## Contributors
 
-- [ieve](https://github.com/your-github-user) - creator and maintainer
+- [ieve](https://github.com/ieve-rothe) - creator and maintainer
